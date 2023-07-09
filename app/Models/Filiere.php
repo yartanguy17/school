@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Filiere extends Model
 {
     use HasFactory;
+    protected $table = 'filieres';
+    protected $guarded = ['created_at','updated_at'];
 }

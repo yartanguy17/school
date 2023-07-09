@@ -35,3 +35,17 @@ Route::get('/zone' , [ZoneController::class, 'index'])->name('zone.index');
     Route::post('/zone/create' , [ZoneController::class, 'create'])->name('zone.create');
     Route::get('/zone/delete/{id}' , [ZoneController::class, 'delete'])->name('zone.delete');
     Route::post('/zone/update/{id}' , [ZoneController::class, 'update'])->name('zone.update');
+// Etablissement 
+
+Route::get('/etablissement' , [EtablissementController::class, 'index'])->name('etablissement.index');
+    Route::get('/etablissement/show/{id}' , [EtablissementController::class, 'show'])->name('etablissement.show');
+    Route::post('/etablissement/create' , [EtablissementController::class, 'create'])->name('etablissement.create');
+    Route::get('/etablissement/delete/{id}' , [EtablissementController::class, 'delete'])->name('etablissement.delete');
+    Route::post('/etablissement/update/{id}' , [EtablissementController::class, 'update'])->name('etablissement.update');
+// Filiere 
+
+Route::get('/filiere' , [EtablissementController::class, 'index'])->name('filiere.index');
+    Route::get('/filiere/show/{id}' , [EtablissementController::class, 'show'])->name('filiere.show');
+    Route::post('/filiere/create' , [EtablissementController::class, 'create'])->name('filiere.create');
+    Route::get('/filiere/delete/{id}' , [EtablissementController::class, 'delete'])->name('filiere.delete');
+    Route::post('/filiere/update/{id}' , [EtablissementController::class, 'update'])->name('filiere.update');
