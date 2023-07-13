@@ -16,5 +16,5 @@
         href="{{ asset('back-end/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('back-end/assets/vendor/charts/c3charts/c3.css') }}">
     <link rel="stylesheet" href="{{ asset('back-end/assets/vendor/fonts/flag-icon-css/flag-icon.min.css') }}">
-    <title>It Freelance</title>
+    <title>School</title>
 </head>

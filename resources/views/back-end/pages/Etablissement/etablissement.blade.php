@@ -66,9 +66,10 @@
                                             <td style="text-align: center">{{ $etablissement->fondateur }}</td>
                                             <td style="text-align: center">{{ $etablissement->telephone }}</td>
                                             <td style="text-align: center">{{ $etablissement->adresse }}</td>
-                                            <td style="text-align: center">{{ $etablissement->type_etablissement_id }}</td>
-                                            <td style="text-align: center">{{ $etablissement->zones_id }}</td>
-                                            <td style="text-align: center">{{ $etablissement->categories_id }}</td>
+                                            <td style="text-align: center">{{ $etablissement->type_etablissement->nom }}
+                                            </td>
+                                            <td style="text-align: center">{{ $etablissement->zone->nom }}</td>
+                                            <td style="text-align: center">{{ $etablissement->categorie->nom }}</td>
                                             <td style="text-align: center">
                                                 <button type="button" onclick="deleteData({{ $etablissement->id }})"
                                                     class="btn btn-danger btn-sm waves-effect waves-light"

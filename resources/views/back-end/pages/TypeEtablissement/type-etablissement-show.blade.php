@@ -14,7 +14,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Modifier</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Modifier categorie</li>
+                                <li class="breadcrumb-item active" aria-current="page">Modifier type etablissement</li>
                             </ol>
                         </nav>
                     </div>
@@ -40,9 +40,10 @@
         <!-- ============================================================== -->
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
-                <h5 class="card-header">Basic Form</h5>
+                <h5 class="card-header">Type etablissement</h5>
                 <div class="card-body">
-                    <form action="{{ route('admin.typeEtablissement.update', $id = $typeEtablissement->id) }}" method="POST">
+                    <form action="{{ route('admin.typeEtablissement.update', $id = $typeEtablissement->id) }}"
+                        method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="inputUserName">Nom</label>
@@ -50,7 +51,7 @@
                                 required="" placeholder="Nom" autocomplete="off" class="form-control"
                                 value="{{ $typeEtablissement->nom }}">
                         </div>
-                    
+
                         <div class="col-sm-6 pl-0">
                             <p class="text-right">
                                 <button type="submit" class="btn btn-space btn-primary">Submit</button>
