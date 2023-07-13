@@ -14,7 +14,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Modifier</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Modifier categorie</li>
+                                <li class="breadcrumb-item active" aria-current="page">Modifier filiere</li>
                             </ol>
                         </nav>
                     </div>
@@ -42,17 +42,28 @@
             <div class="card">
                 <h5 class="card-header">Basic Form</h5>
                 <div class="card-body">
-                    <form action="{{ route('admin.categorie.update', $id = $categorie->id) }}" method="POST">
+                    <form action="{{ route('admin.filiere.update', $id = $filiere->id) }}" method="POST">
                         @csrf
+                        <label for="exampleInputPassword1">Etablissement</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="etablissement_id" required>
+                            <option>choisir</option>
+                            @foreach ($etablissements as $etablissement)
+                                @if ($filiere->etablissement_id == $etablissement->id)
+                                    <option value=" {{ $etablissement->id }}" selected>{{ $etablissement->nom }}
+                                    </option>
+                                @else
+                                    <option value=" {{ $etablissement->id }}">{{ $etablissement->nom }}
+                                    </option>
+                                @endif
+                            @endforeach
+
+                        </select>
+
                         <div class="form-group">
-                            <label for="inputUserName">Libelle</label>
-                            <input id="inputUserName" type="text" name="libelle" data-parsley-trigger="change"
-                                required="" placeholder="Libelle" autocomplete="off" class="form-control"
-                                value="{{ $categorie->libelle }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleTextarea">Description</label>
-                            <textarea class="form-control" id="exampleTextarea" rows="5" name="description">{{ $categorie->description }}</textarea>
+                            <input type="text" id="" name="id" value="0" hidden>
+                            <label for="exampleInputPassword1">Nom</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" required name="nom"
+                                placeholder="Nom " value="{{ $filiere->nom }}">
                         </div>
 
 

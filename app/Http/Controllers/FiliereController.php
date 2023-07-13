@@ -15,17 +15,18 @@ class FiliereController extends Controller
 
     public function show ($id) {
       $filiere = Filiere::findOrFail($id);
-      return view('back-end.pages.filiere.filiere-show' , compact('filiere'));
+      $etablissements = Etablissement::all();
+      return view('back-end.pages.filiere.filiere-show' , compact('filiere' , 'etablissements'));
     }
     public function create (Request $request) {
         $request->validate([
             'nom'=>'required',
-            'id_etablissement	'=>'required',
+            'etablissement_id'=>'required',
         ]);
 
         Filiere::create([
             'nom' => $request->nom ,
-            'id_etablissement	' => $request->id_etablissement	 ,
+            'etablissement_id' => $request->etablissement_id	 ,
         ]);
         return redirect()->route('admin.filiere.index')->with('success' , "Filiere Ajouter");
     }
@@ -33,7 +34,7 @@ class FiliereController extends Controller
         $filiere = Filiere::findOrFail($id);
 
         $filiere->nom = $request->nom ;
-        $filiere->id_etablissement	 = $request->id_etablissement	 ;
+        $filiere->etablissement_id	 = $request->etablissement_id	 ;
         $filiere->save();
         return redirect()->route('admin.filiere.index')->with('success' , "Filiere modifier");
     }

@@ -19,7 +19,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Listes</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Liste des sous categories</li>
+                                <li class="breadcrumb-item active" aria-current="page">Liste des etudiants</li>
                             </ol>
                         </nav>
                     </div>
@@ -35,11 +35,11 @@
             <!-- ============================================================== -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
-                    <h5 class="card-header">Liste des sous categories</h5>
+                    <h5 class="card-header">Liste des Etudiants</h5>
                     <div class="col-md-4 offset-md-7">
                         <button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal"
                             data-target="#exampleModal">
-                            Ajouter Sous Categorie
+                            Ajouter Etudiant
                         </button>
                     </div>
                     <div class="card-body">
@@ -48,31 +48,36 @@
                                 <thead>
                                     <tr>
                                         <th>id</th>
-                                        <th>Libelle</th>
-                                        <th>categorie</th>
+                                        <th>Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Sexe</th>
+                                        <th>date_naissance</th>
+                                        <th>lieu_naissance</th>
+                                        <th>adresse</th>
+                                        <th>contact</th>
 
 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($sousCategories as $sousCategorie)
+
+                                    @foreach ($etudiants as $etudiant)
                                         <tr>
-                                            <td>{{ $sousCategorie->id }}</td>
-                                            <td>{{ $sousCategorie->libelle }}</td>
-                                            <td>{{ $sousCategorie->categorie->libelle }}</td>
+                                            <td>{{ $etudiant->id }}</td>
+                                            <td>{{ $etudiant->nom }}</td>
+                                            <td>{{ $etudiant->prenom }}</td>
+                                            <td>{{ $etudiant->sexe }}</td>
 
-
+                                            <td>{{ $etudiant->date_naissance }}</td>
+                                            <td>{{ $etudiant->lieu_naissance }}</td>
+                                            <td>{{ $etudiant->adresse }}</td>
+                                            <td>{{ $etudiant->contact }}</td>
 
                                             <td>
 
-                                                <button type="button" onclick="deleteData({{ $sousCategorie->id }})"
-                                                    class="btn btn-danger btn-sm waves-effect waves-light"
-                                                    data-toggle="modal" data-target="#modalConfirmDeletes">
-                                                    <i class="fa fa-trash"></i> Supprimer
-                                                </button>
-                                                <a
-                                                    href="{{ route('admin.sousCategorie.show', [($id = $sousCategorie->id)]) }}">
+
+                                                <a href="{{ route('admin.etudiant.show', [($id = $etudiant->id)]) }}">
                                                     <button type="button"
                                                         class="btn btn-primary btn-sm waves-effect waves-light"
                                                         data-toggle="modal">
@@ -81,28 +86,36 @@
                                                     </button>
 
                                                 </a>
-
+                                                <button type="button" onclick="deleteData({{ $etudiant->id }})"
+                                                    class="btn btn-danger btn-sm waves-effect waves-light"
+                                                    data-toggle="modal" data-target="#modalConfirmDeletes">
+                                                    <i class="fa fa-trash"></i> Supprimer
+                                                </button>
                                             </td>
 
                                         </tr>
                                     @endforeach
 
+                                    <tr>
 
-
+                                    </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>id</th>
-                                        <th>Libelle</th>
-                                        <th>categorie</th>
-
+                                        <th>Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Sexe</th>
+                                        <th>date_naissance</th>
+                                        <th>lieu_naissance</th>
+                                        <th>adresse</th>
+                                        <th>contact</th>
 
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
-                            {!! $sousCategories->withQueryString()->links('pagination::bootstrap-5') !!}
-
+                            {!! $etudiants->withQueryString()->links('pagination::bootstrap-5') !!}
                         </div>
                     </div>
                 </div>
@@ -114,38 +127,70 @@
 
 
     </div>
-
     <!-- Modal d'ajout -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajout Sous Categorie</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ajout Etudiant</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('admin.sousCategorie.create') }}">
+                    <form method="POST" action="{{ route('admin.etudiant.create') }}">
 
                         @csrf
+                        <div class="form-group  ">
 
-                        <label for="exampleFormControlSelect1">Categorie</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="categorie" required>
-                            <option>choisir</option>
-                            @foreach ($Categories as $Categorie)
-                                <option value="{{ $Categorie->id }}">{{ $Categorie->libelle }}</option>
-                            @endforeach
-
-                        </select>
+                            <label for="debut">Nom </label>
+                            <input type="text" class="form-control" id="debut" placeholder="nom" name="nom"
+                                required>
+                        </div>
 
                         <div class="form-group">
-                            <input type="text" id="" name="id" value="0" hidden>
-                            <label for="exampleInputPassword1">Libelle</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" required name="libelle"
-                                placeholder="Nom ">
+                            <label for="exampleInputPassword1">Prenom</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" required name="prenom"
+                                placeholder="Prenom">
                         </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Sexe</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" required name="sexe"
+                                placeholder="Sexe">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Date de naissance</label>
+                            <input type="date" class="form-control" id="datepicker" name="date_naissance">
+
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Lieu de naissance</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" required
+                                name="lieu_naissance" placeholder="Lieu naissance">
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="debut">Adresse</label>
+                            <input type="text" class="form-control" id="debut" placeholder="Adresse" name="adresse">
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Contact</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" required
+                                name="contact" placeholder="Contact">
+                        </div>
+
+
 
 
 
@@ -172,7 +217,7 @@
             <div class="modal-content text-center">
                 <!--Header-->
                 <div class="modal-header d-flex justify-content-center">
-                    <p class="heading">Vous êtes sûr de supprimer cette sous categorie ?</p>
+                    <p class="heading">Vous êtes sûr de bloquer cet prestataire ?</p>
                 </div>
 
                 <!--Body-->
@@ -202,7 +247,7 @@
     <script>
         function deleteData(id) {
             var id = id;
-            var url = '{{ route('admin.sousCategorie.delete', ':id') }}';
+            var url = '{{ route('admin.etudiant.delete', ':id') }}';
             url = url.replace(':id', id);
             $("#deleteForm").attr('action', url);
         }

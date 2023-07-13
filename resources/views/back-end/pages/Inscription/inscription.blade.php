@@ -19,7 +19,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Listes</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Liste des projets</li>
+                                <li class="breadcrumb-item active" aria-current="page">Liste des inscriptions</li>
                             </ol>
                         </nav>
                     </div>
@@ -35,11 +35,11 @@
             <!-- ============================================================== -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
-                    <h5 class="card-header">Liste des Projets</h5>
+                    <h5 class="card-header">Liste des inscriptions</h5>
                     <div class="col-md-4 offset-md-7">
                         <button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal"
                             data-target="#exampleModal">
-                            Ajouter d'un projet
+                            Ajouter d'une inscription
                         </button>
                     </div>
                     <div class="card-body">
@@ -47,43 +47,42 @@
                             <table class="table table-striped table-bordered first">
                                 <thead>
                                     <tr>
-                                        <th>Type prestation</th>
-                                        <th>Titre</th>
-                                        <th>Debut</th>
+                                        <th>Id</th>
+                                        <th>Année scolaire</th>
+                                        <th>Filière</th>
+                                        <th>etudiant</th>
 
-                                        <th>Lieu</th>
+
+
 
 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($projets as $projet)
+                                    @foreach ($inscriptions as $inscription)
                                         <tr>
-                                            <td>{{ $projet->type_prestation }}</td>
-                                            <td>{{ $projet->titre }}</td>
-                                            <td>{{ $projet->debut }}</td>
+                                            <td>{{ $inscription->id }}</td>
+                                            <td>{{ $inscription->annneScolaire->nom }}</td>
+                                            <td>{{ $inscription->filliere->nom }}</td>
+                                            <td>{{ $inscription->etudiant->nom }}</td>
 
-                                            <td>{{ $projet->lieu }}</td>
+
 
                                             <td>
 
 
-                                                <a href="{{ route('admin.projet.edit', $id = $projet->id) }}">
-                                                    <button type="button" class="btn btn-primary btn-sm">
-                                                        <i class="fa fa-pen"></i> Modifier
-                                                    </button>
-                                                </a>
-                                                <a href="{{ route('admin.projet.show', [($id = $projet->id)]) }}">
+
+                                                <a href="{{ route('admin.inscription.show', [($id = $inscription->id)]) }}">
                                                     <button type="button"
                                                         class="btn btn-primary btn-sm waves-effect waves-light"
                                                         data-toggle="modal">
-                                                        <i class="fa fa-eye"></i> Voir
+                                                        <i class="fa fa-eye"></i> Modifier
 
                                                     </button>
                                                 </a>
 
-                                                <button type="button" onclick="deleteData({{ $projet->id }})"
+                                                <button type="button" onclick="deleteData({{ $inscription->id }})"
                                                     class="btn btn-danger btn-sm waves-effect waves-light"
                                                     data-toggle="modal" data-target="#modalConfirmDeletes">
                                                     <i class="fa fa-trash"></i> Supprimer
@@ -99,18 +98,16 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Type prestation</th>
-                                        <th>Titre</th>
-                                        <th>Debut</th>
-
-                                        <th>Lieu</th>
-
+                                        <th>Id</th>
+                                        <th>Année scolaire</th>
+                                        <th>Filière</th>
+                                        <th>etudiant</th>
 
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
-                            {!! $projets->withQueryString()->links('pagination::bootstrap-5') !!}
+                            {!! $inscriptions->withQueryString()->links('pagination::bootstrap-5') !!}
 
                         </div>
                     </div>
@@ -129,68 +126,44 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajout Projet</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ajout Inscription</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('admin.projet.addProjet') }}">
+                    <form method="POST" action="{{ route('admin.inscription.create') }}">
 
                         @csrf
 
-                        <label for="exampleFormControlSelect1">Entreprise</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="entreprise_id" required>
+                        <label for="exampleFormControlSelect1">Annee scolaire</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="annee_scolaire_id" required>
                             <option>choisir</option>
-                            @foreach ($entreprises as $entreprise)
-                                <option value="{{ $entreprise->id }}">{{ $entreprise->nom_entreprise }}</option>
-                            @endforeach
-
-                        </select>
-                        <div class="form-group  ">
-
-                            <label for="debut">Type prestation </label>
-                            <input type="text" class="form-control" id="debut" placeholder="Type prestation"
-                                name="type_prestation">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Titre</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" required name="titre"
-                                placeholder="titre">
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Debut</label>
-                            <input type="date" class="form-control" id="exampleInputPassword1" required name="debut"
-                                placeholder="Debut">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Lieu</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" required name="lieu"
-                                placeholder="Lieu">
-                        </div>
-
-
-                        <label for="exampleFormControlSelect1">Categorie</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="categorie_id" required>
-                            <option>choisir</option>
-                            @foreach ($categories as $categorie)
-                                <option value="{{ $categorie->id }}">{{ $categorie->libelle }}</option>
+                            @foreach ($anneeScolaires as $anneeScolaire)
+                                <option value="{{ $anneeScolaire->id }}">{{ $anneeScolaire->nom }}</option>
                             @endforeach
 
                         </select>
 
-                        <label for="exampleInputPassword1">Description</label>
-                        <div class="form-group">
-                            <input type="text" id="" name="id" value="0" hidden>
-                            <textarea name="description" id="" cols="50" rows="10"></textarea>
-                        </div>
+                        <label for="exampleFormControlSelect1">Etudiant</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="etudiant_id" required>
+                            <option>choisir</option>
+                            @foreach ($etudiants as $etudiant)
+                                <option value="{{ $etudiant->id }}">{{ $etudiant->nom . ' ' . $etudiant->prenom }}
+                                </option>
+                            @endforeach
 
+                        </select>
+
+                        <label for="exampleFormControlSelect1">Filliere</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="filliere_id"
+                            style="margin-bottom: 10px">
+                            <option>choisir</option>
+                            @foreach ($fillieres as $filliere)
+                                <option value="{{ $filliere->id }}">{{ $filliere->nom }}</option>
+                            @endforeach
+
+                        </select>
 
 
 
@@ -246,7 +219,7 @@
     <script>
         function deleteData(id) {
             var id = id;
-            var url = '{{ route('admin.projet.delete', ':id') }}';
+            var url = '{{ route('admin.inscription.delete', ':id') }}';
             url = url.replace(':id', id);
             $("#deleteForm").attr('action', url);
         }

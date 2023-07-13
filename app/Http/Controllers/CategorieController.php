@@ -28,7 +28,7 @@ class CategorieController extends Controller
     public function update ($id , Request $request) {
         $categorie = Categorie::findOrFail($id);
 
-        $categorie->nom = $request->libelle ;
+        $categorie->nom = $request->nom ;
         $categorie->save();
         return redirect()->route('admin.categorie.index')->with('success' , "Categorie modifier");
     }

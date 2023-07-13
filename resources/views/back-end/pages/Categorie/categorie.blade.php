@@ -78,7 +78,7 @@
                                 <tfoot>
                                     <tr>
                                         <th style="text-align: center">id</th>
-                                        <th style="text-align: center">Libelle</th>
+                                        <th style="text-align: center">Nom</th>
                                         <th style="text-align: center">Action</th>
                                     </tr>
                                 </tfoot>

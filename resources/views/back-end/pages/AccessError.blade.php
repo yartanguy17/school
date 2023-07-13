@@ -39,7 +39,7 @@
                             <div class="error-section-content">
                                 <h1 class="display-3">L'acces a cette page vous est refusé</h1>
 
-                                <a href="{{ route('admin.connexion') }}" class="btn btn-secondary btn-lg">Retourner a la
+                                <a href="{{ url('/') }}" class="btn btn-secondary btn-lg">Retourner a la
                                     connexion</a>
                             </div>
                         </div>

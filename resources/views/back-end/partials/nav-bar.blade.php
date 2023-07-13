@@ -1,6 +1,6 @@
 <div class="dashboard-header">
     <nav class="navbar navbar-expand-lg bg-white fixed-top">
-        <a class="navbar-brand" href="{{ route('admin.dashboard') }}">It Freelance</a>
+        <a class="navbar-brand" href="">SCHOOL</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -15,9 +15,9 @@
                 <li class="nav-item dropdown notification">
                     <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i>
-                        @if (count(auth()->user()->unreadNotifications) != 0)
+                        {{--   @if (count(auth()->user()->unreadNotifications) != 0)
                             <span class="indicator"></span>
-                        @endif
+                        @endif --}}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                         <li>
@@ -25,7 +25,7 @@
                             <div class="notification-list">
                                 <div class="list-group">
 
-                                    @foreach (auth()->user()->unreadNotifications as $notification)
+                                    {{--    @foreach (auth()->user()->unreadNotifications as $notification)
                                         @if ($notification->type == 'App\Notifications\FreelanceNotification')
                                             <a href="#" class="list-group-item list-group-item-action active">
                                                 <div class="notification-info">
@@ -60,7 +60,7 @@
                                                 </div>
                                             </a>
                                         @endif
-                                    @endforeach
+                                    @endforeach  --}}
 
 
 
@@ -121,7 +121,7 @@
                         </div>
                         <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                        <a class="dropdown-item" href="{{ route('admin.connexion.logout') }}"><i
+                        <a class="dropdown-item" href="{{ url('/admin/deconnexion') }}"><i
                                 class="fas fa-power-off mr-2"></i>Deconnexion</a>
                     </div>
                 </li>

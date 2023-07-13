@@ -20,9 +20,13 @@ class EtablissementController extends Controller
 
     public function show ($id) {
       $etablissement = Etablissement::findOrFail($id);
-      return view('back-end.pages.Etablissement.etablissement-show' , compact('etablissement'));
+      $zones = Zone::all();
+      $categories = Categorie::all();
+      $type_etablissements = TypeEtablissement::all();
+      return view('back-end.pages.Etablissement.etablissement-show' ,  compact('etablissement','zones','categories','type_etablissements'));
     }
     public function create (Request $request) {
+
         $request->validate([
             'nom'=>'required',
             'fondateur'=>'required',
@@ -31,7 +35,8 @@ class EtablissementController extends Controller
             'type_etablissement_id'=>'required',
             'zones_id'=>'required',
             'categories_id'=>'required',
-            
+            'numero_manuel'=>'required',
+
         ]);
 
         Etablissement::create([
@@ -42,9 +47,11 @@ class EtablissementController extends Controller
             'type_etablissement_id' => $request->type_etablissement_id ,
             'zones_id' => $request->zones_id ,
             'categories_id' => $request->categories_id ,
+            'numero_manuel'=> $request->numero_manuel ,
         ]);
         return redirect()->route('admin.etablissement.index')->with('success' , "Etablissement Ajouter");
     }
+
     public function update ($id , Request $request) {
         $etablissement = Etablissement::findOrFail($id);
 

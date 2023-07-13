@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('fondateur');
             $table->string('telephone');
             $table->string('adresse');
-            $table->integer('type_etablissement_id');
+            $table->unsignedBigInteger('type_etablissement_id');
             $table->foreign('type_etablissement_id')->references('id')->on('type_etablissements')->onDelete('cascade');
-            $table->integer('zones_id');
+            $table->unsignedBigInteger('zones_id');
             $table->foreign('zones_id')->references('id')->on('zones')->onDelete('cascade');
-            $table->integer('categories_id');
+            $table->unsignedBigInteger('categories_id');
             $table->foreign('categories_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });

@@ -12,14 +12,13 @@
             @endif
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    {{-- <h2 class="pageheader-title">Data Tables</h2>
-                <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p> --}}
+
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Listes</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Liste des prestataire</li>
+                                <li class="breadcrumb-item active" aria-current="page">Liste des années scolaire</li>
                             </ol>
                         </nav>
                     </div>
@@ -35,11 +34,11 @@
             <!-- ============================================================== -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
-                    <h5 class="card-header">Liste des Prestataire</h5>
+                    <h5 class="card-header">Liste des Années scolaires</h5>
                     <div class="col-md-4 offset-md-7">
                         <button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal"
                             data-target="#exampleModal">
-                            Ajouter Prestataire
+                            Ajouter année scolaire
                         </button>
                     </div>
                     <div class="card-body">
@@ -49,46 +48,44 @@
                                     <tr>
                                         <th>id</th>
                                         <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Niveau</th>
-                                        <th>metier</th>
-
+                                        <th>Date debut</th>
+                                        <th>Date fin</th>
 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($prestataires as $prestataire)
+                                    @foreach ($anneeScolaires as $anneeScolaire)
                                         <tr>
-                                            <td>{{ $prestataire->id }}</td>
-                                            <td>{{ $prestataire->user->nom }}</td>
-                                            <td>{{ $prestataire->user->prenom }}</td>
-                                            <td>{{ $prestataire->niveau }}</td>
+                                            <td>{{ $anneeScolaire->id }}</td>
+                                            <td>{{ $anneeScolaire->nom }}</td>
+                                            <td>{{ $anneeScolaire->date_debut }}</td>
+                                            <td>{{ $anneeScolaire->date_fin }}</td>
 
-                                            <td>{{ $prestataire->metier }}</td>
+
 
                                             <td>
-                                                <a href="{{ route('admin.prestataire.edit', $id = $prestataire->id) }}">
-                                                    <button type="button" class="btn btn-primary btn-sm">
-                                                        <i class="fa fa-pen"></i> Modifier
-                                                    </button>
-                                                </a>
 
-                                                <a href="{{ route('admin.prestataire.show', [($id = $prestataire->id)]) }}">
+                                                <a
+                                                    href="{{ route('admin.anneeScolaire.show', [($id = $anneeScolaire->id)]) }}">
                                                     <button type="button"
                                                         class="btn btn-primary btn-sm waves-effect waves-light"
                                                         data-toggle="modal">
-                                                        <i class="fa fa-eye"></i> Voir
+                                                        <i class="fa fa-eye"></i> Modifier
 
                                                     </button>
 
                                                 </a>
-                                                <button type="button" onclick="deleteData({{ $prestataire->id }})"
+
+
+
+                                                <button type="button" onclick="deleteData({{ $anneeScolaire->id }})"
                                                     class="btn btn-danger btn-sm waves-effect waves-light"
                                                     data-toggle="modal" data-target="#modalConfirmDeletes">
                                                     <i class="fa fa-trash"></i> Supprimer
                                                 </button>
+
                                             </td>
 
                                         </tr>
@@ -102,15 +99,15 @@
                                     <tr>
                                         <th>id</th>
                                         <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Niveau</th>
-                                        <th>metier</th>
+                                        <th>Date debut</th>
+                                        <th>Date fin</th>
+
 
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
-                            {!! $prestataires->withQueryString()->links('pagination::bootstrap-5') !!}
+                            {!! $anneeScolaires->withQueryString()->links('pagination::bootstrap-5') !!}
                         </div>
                     </div>
                 </div>
@@ -122,85 +119,42 @@
 
 
     </div>
+
     <!-- Modal d'ajout -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajout Prestataire</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ajout Annee scolaire</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('admin.prestataire.addPrestataire') }}">
+                    <form method="POST" action="{{ route('admin.anneeScolaire.create') }}">
 
                         @csrf
-                        <div class="form-group  ">
-
-                            <label for="debut">E-mail </label>
-                            <input type="email" class="form-control" id="debut" placeholder="E-mail" name="email"
-                                required>
-                        </div>
-
-                        <div class="form-group  ">
-
+                        <div class="form-group">
                             <label for="debut">Nom </label>
                             <input type="text" class="form-control" id="debut" placeholder="Nom" name="nom">
                         </div>
 
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Prenom</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" required name="prenom"
-                                placeholder="Prenom">
-                        </div>
+                            <label for="exampleInputPassword1">Debut</label>
+                            <input type="date" class="form-control" id="datepicker" name="date_debut">
 
-
-
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Telephone</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" required name="telephone"
-                                placeholder="Telephone">
-                        </div>
-
-                        <input type="text" value="1" name="role" hidden>
-                        <input type="text" id="" name="id" value="0" hidden>
-
-                        <div class="form-group  ">
-                            <label for="debut">Password </label>
-                            <input type="password" class="form-control" id="debut" placeholder="password"
-                                name="password">
-                        </div>
-
-                        <label for="exampleFormControlSelect1">Categorie</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="categorie_id" required>
-                            <option>choisir</option>
-                            @foreach ($categories as $categorie)
-                                <option value="{{ $categorie->id }}">{{ $categorie->libelle }}</option>
-                            @endforeach
-
-                        </select>
-
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Metier</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" required
-                                name="metier" placeholder="Metier">
                         </div>
 
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Competence</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" required
-                                name="competence" placeholder="Competence">
+                            <label for="exampleInputPassword1">Fin</label>
+                            <input type="date" class="form-control" id="datepicker" name="date_fin">
                         </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Niveau</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" required
-                                name="niveau" placeholder="Niveau">
-                        </div>
+
+
 
 
 
@@ -226,7 +180,7 @@
             <div class="modal-content text-center">
                 <!--Header-->
                 <div class="modal-header d-flex justify-content-center">
-                    <p class="heading">Vous êtes sûr de bloquer cet prestataire ?</p>
+                    <p class="heading">Vous êtes sûr de bloquer cet contrat ?</p>
                 </div>
 
                 <!--Body-->
@@ -256,7 +210,8 @@
     <script>
         function deleteData(id) {
             var id = id;
-            var url = '{{ route('admin.prestataire.delete', ':id') }}';
+
+            var url = '{{ route('admin.anneeScolaire.delete', ':id') }}';
             url = url.replace(':id', id);
             $("#deleteForm").attr('action', url);
         }

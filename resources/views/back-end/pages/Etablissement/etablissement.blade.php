@@ -35,11 +35,11 @@
             <!-- ============================================================== -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
-                    <h5 class="card-header">Liste des etablissement</h5>
+                    <h5 class="card-header">Liste des etablissements</h5>
                     <div class="col-md-4 offset-md-7">
                         <button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal"
                             data-target="#exampleModal">
-                            Ajouter zone
+                            Ajouter etablissement
                         </button>
                     </div>
                     <div class="card-body">
@@ -75,7 +75,8 @@
                                                     data-toggle="modal" data-target="#modalConfirmDeletes">
                                                     <i class="fa fa-trash"></i> Supprimer
                                                 </button>
-                                                <a href="{{ route('admin.etablissement.show', [($id = $etablissement->id)]) }}">
+                                                <a
+                                                    href="{{ route('admin.etablissement.show', [($id = $etablissement->id)]) }}">
                                                     <button type="button"
                                                         class="btn btn-primary btn-sm waves-effect waves-light"
                                                         data-toggle="modal">
@@ -89,7 +90,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                    <th style="text-align: center">id</th>
+                                        <th style="text-align: center">id</th>
                                         <th style="text-align: center">Nom</th>
                                         <th style="text-align: center">Fondacteur</th>
                                         <th style="text-align: center">Telephone</th>
@@ -121,44 +122,63 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajout zone</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ajout etablissement</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('admin.zone.create') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.etablissement.create') }}" enctype="multipart/form-data">
 
                         @csrf
 
                         <div class="form-group">
                             <input type="text" id="" name="id" value="0" hidden>
                             <label for="exampleInputPassword1">Nom</label>
-                            <input type="text" class="form-control" id="" required name="nom"placeholder="Nom ">
+                            <input type="text" class="form-control" id="" required
+                                name="nom"placeholder="Nom ">
+                            <label for="exampleInputPassword1">Numero manuel</label>
+                            <input type="text" class="form-control" id="" required
+                                name="numero_manuel"placeholder="Numero nanuel ">
                             <label for="exampleInputPassword1">Fondateur</label>
-                            <input type="text" class="form-control" id="" required name="fondateur"placeholder="fondateur ">
+                            <input type="text" class="form-control" id="" required
+                                name="fondateur"placeholder="fondateur ">
                             <label for="exampleInputPassword1">telephone</label>
-                            <input type="text" class="form-control" id="" required name="telephone"placeholder="telephone ">
+                            <input type="text" class="form-control" id="" required
+                                name="telephone"placeholder="telephone ">
                             <label for="exampleInputPassword1">Adresse</label>
-                            <input type="text" class="form-control" id="" required name="adresse"placeholder="adresse ">
+                            <input type="text" class="form-control" id="" required
+                                name="adresse"placeholder="adresse ">
+
+
                             <label for="exampleInputPassword1">Type etablissement</label>
-                            <select name="type_etablissement_id" id="">
-                                @foreach( $type_etablissements as $type_etablissement)
-                                    <option value=" {{$type_etablissement->id}}">{{$type_etablissement->nom}}</option>
+                            <select class="form-control" id="exampleFormControlSelect1" name="type_etablissement_id"
+                                required>
+                                <option>choisir</option>
+                                @foreach ($type_etablissements as $type_etablissement)
+                                    <option value=" {{ $type_etablissement->id }}">{{ $type_etablissement->nom }}
+                                    </option>
                                 @endforeach
+
                             </select>
-                            
+
+
+
                             <label for="exampleInputPassword1">Zones</label>
-                            <select name="zones_id" id="">
-                                @foreach( $zones as $zone)
-                                    <option value=" {{$zone->id}}">{{$zone->nom}}</option>
+                            <select class="form-control" id="exampleFormControlSelect1" name="zones_id" id=""
+                                required>
+                                <option>choisir</option>
+                                @foreach ($zones as $zone)
+                                    <option value=" {{ $zone->id }}">{{ $zone->nom }}</option>
                                 @endforeach
                             </select>
-                    
+
                             <label for="exampleInputPassword1">Categories</label>
-                            <select name="categories_id" id="">
-                                @foreach( $categories as $categorie)
-                                    <option value=" {{$categorie->id}}">{{$categorie->nom}}</option>
+                            <select class="form-control" id="exampleFormControlSelect1" name="categories_id"
+                                id="" required>
+                                <option>choisir</option>
+                                @foreach ($categories as $categorie)
+                                    <option value=" {{ $categorie->id }}">{{ $categorie->nom }}</option>
                                 @endforeach
                             </select>
                         </div>

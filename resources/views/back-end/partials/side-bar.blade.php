@@ -12,7 +12,7 @@
                         Menu
                     </li>
 
-                    <li class="nav-item">
+                    {{--  <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-2" aria-controls="submenu-2">Parametre</a>
                         <div id="submenu-2" class="collapse submenu" style="">
@@ -32,31 +32,46 @@
 
                             </ul>
                         </div>
-                    </li>
+                    </li> --}}
 
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.projet') }}">Projet</a>
+                        <a class="nav-link" href="{{ route('admin.categorie.index') }}">Categories</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.entreprise.index') }}">Entreprise</a>
+                        <a class="nav-link" href="{{ route('admin.typeEtablissement.index') }}">Type etablissement</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.prestataire.index') }}">Prestataire</a>
+                        <a class="nav-link" href="{{ route('admin.zone.index') }}">Zone</a>
                     </li>
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.contrat.index') }}">Contrat</a>
+                        <a class="nav-link" href="{{ route('admin.etablissement.index') }}">Etablissement</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.contact.index') }}">Contacts</a>
+                        <a class="nav-link" href="{{ route('admin.filiere.index') }}">Filière</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.anneeScolaire.index') }}">Année scolaire</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.classe.index') }}">Classe</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.etudiant.index') }}"> Etudiant</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.inscription.index') }}"> Incription</a>
+                    </li>
 
 
 

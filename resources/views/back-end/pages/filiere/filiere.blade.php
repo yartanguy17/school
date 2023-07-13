@@ -58,13 +58,14 @@
                                         <tr>
                                             <td style="text-align: center">{{ $filiere->id }}</td>
                                             <td style="text-align: center">{{ $filiere->nom }}</td>
+                                            <td style="text-align: center">{{ $filiere->etablissement->nom }}</td>
                                             <td style="text-align: center">
-                                                <button type="button" onclick="deleteData({{ $categorie->id }})"
+                                                <button type="button" onclick="deleteData({{ $filiere->id }})"
                                                     class="btn btn-danger btn-sm waves-effect waves-light"
                                                     data-toggle="modal" data-target="#modalConfirmDeletes">
                                                     <i class="fa fa-trash"></i> Supprimer
                                                 </button>
-                                                <a href="{{ route('admin.categorie.show', [($id = $categorie->id)]) }}">
+                                                <a href="{{ route('admin.filiere.show', [($id = $filiere->id)]) }}">
                                                     <button type="button"
                                                         class="btn btn-primary btn-sm waves-effect waves-light"
                                                         data-toggle="modal">
@@ -78,7 +79,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                    <th style="text-align: center">id</th>
+                                        <th style="text-align: center">id</th>
                                         <th style="text-align: center">Nom</th>
                                         <th style="text-align: center">Etablissement</th>
                                         <th style="text-align: center">Action</th>
@@ -105,15 +106,25 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajout Categorie</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ajout Filiere</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('admin.categorie.create') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.filiere.create') }}" enctype="multipart/form-data">
 
                         @csrf
+
+                        <label for="exampleInputPassword1">Etablissement</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="etablissement_id" required>
+                            <option>choisir</option>
+                            @foreach ($etablissements as $etablissement)
+                                <option value=" {{ $etablissement->id }}">{{ $etablissement->nom }}
+                                </option>
+                            @endforeach
+
+                        </select>
 
                         <div class="form-group">
                             <input type="text" id="" name="id" value="0" hidden>
@@ -121,6 +132,8 @@
                             <input type="text" class="form-control" id="exampleInputPassword1" required name="nom"
                                 placeholder="Nom ">
                         </div>
+
+
 
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -174,7 +187,7 @@
     <script>
         function deleteData(id) {
             var id = id;
-            var url = '{{ route('admin.categorie.delete', ':id') }}';
+            var url = '{{ route('admin.filiere.delete', ':id') }}';
             url = url.replace(':id', id);
             $("#deleteForm").attr('action', url);
         }

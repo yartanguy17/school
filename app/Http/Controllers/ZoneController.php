@@ -8,12 +8,12 @@ class ZoneController extends Controller
 {
     public function index () {
         $zones = Zone::paginate(2);
-        return view('back-end.pages.Categorie.categorie' , compact('zones'));
+        return view('back-end.pages.Zone.zone' , compact('zones'));
     }
 
     public function show ($id) {
       $zone = Zone::findOrFail($id);
-      return view('back-end.pages.Categorie.categorie-show' , compact('zone'));
+      return view('back-end.pages.Zone.zone-show' , compact('zone'));
     }
     public function create (Request $request) {
         $request->validate([

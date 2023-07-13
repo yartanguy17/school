@@ -40,16 +40,47 @@
         <!-- ============================================================== -->
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
-                <h5 class="card-header">Basic Form</h5>
+                <h5 class="card-header">Modifié classe</h5>
                 <div class="card-body">
-                    <form action="{{ route('admin.categorie.update', $id = $categorie->id) }}" method="POST">
+                    <form action="{{ route('admin.classe.update', $id = $classe->id) }}" method="POST">
                         @csrf
+
+                        <label for="exampleInputPassword1">Etablissement</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="etablissement_id" required>
+                            <option>choisir</option>
+                            @foreach ($etablissements as $etablissement)
+                                @if ($classe->etablissement_id == $etablissement->id)
+                                    <option value=" {{ $etablissement->id }}" selected>{{ $etablissement->nom }}
+                                    </option>
+                                @else
+                                    <option value=" {{ $etablissement->id }}">{{ $etablissement->nom }}
+                                    </option>
+                                @endif
+                            @endforeach
+
+                        </select>
+
                         <div class="form-group">
-                            <label for="inputUserName">Nom</label>
-                            <input id="inputUserName" type="text" name="nom" data-parsley-trigger="change"
-                                required="" placeholder="Nom" autocomplete="off" class="form-control"
-                                value="{{ $categorie->nom }}">
+                            <input type="text" id="" name="id" value="0" hidden>
+                            <label for="exampleInputPassword1">Nom</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" required name="nom"
+                                placeholder="Nom " value="{{ $classe->nom }}">
                         </div>
+
+
+                        {{-- <div class="form-group">
+                            <label for="inputImage">Ajouter une image</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputImage"
+                                        aria-describedby="inputImageAddon" name="image_path"
+                                        value="{{ $categorie->image_path }}">
+                                    <label class="custom-file-label" for="inputImage">Choisir un fichier</label>
+                                </div>
+
+                            </div>
+                        </div> --}}
+
 
                         <div class="col-sm-6 pl-0">
                             <p class="text-right">
@@ -57,12 +88,12 @@
                                 <button class="btn btn-space btn-secondary">Cancel</button>
                             </p>
                         </div>
+
+                    </form>
                 </div>
-                </form>
             </div>
         </div>
-    </div>
-    <!-- ============================================================== -->
-    <!-- end basic form -->
-    <!-- ============================================================== -->
-@endsection
+        <!-- ============================================================== -->
+        <!-- end basic form -->
+        <!-- ============================================================== -->
+    @endsection

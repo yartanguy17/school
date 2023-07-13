@@ -14,7 +14,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Modifier</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Modifier categorie</li>
+                                <li class="breadcrumb-item active" aria-current="page">Modifier Annee</li>
                             </ol>
                         </nav>
                     </div>
@@ -40,45 +40,51 @@
         <!-- ============================================================== -->
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
-                <h5 class="card-header">Modifié Sous categorie</h5>
+                <h5 class="card-header">Basic Form</h5>
                 <div class="card-body">
-                    <form action="{{ route('admin.sousCategorie.update', $id = $sousCategorie->id) }}" method="POST">
+
+                    <form method="POST" action="{{ route('admin.anneeScolaire.update', $id = $anneeScolaire->id) }}">
+
                         @csrf
 
-                        <label for="exampleFormControlSelect1">Categorie</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="categorie" required>
-                            <option value="{{ $sousCategorie->categorie->id }}">{{ $sousCategorie->categorie->libelle }}
-                            </option>
-                            @foreach ($Categories as $Categorie)
-                                @if ($sousCategorie->categorie->id == $Categorie->id)
-                                    <option value="{{ $Categorie->id }}" selected>{{ $Categorie->libelle }}</option>
-                                @else
-                                    <option value="{{ $Categorie->id }}">{{ $Categorie->libelle }}</option>
-                                @endif
-                            @endforeach
-                        </select>
+
 
                         <div class="form-group">
-                            <label for="inputUserName">Libelle</label>
-                            <input id="inputUserName" type="text" name="libelle" data-parsley-trigger="change"
-                                required="" placeholder="Libelle" autocomplete="off" class="form-control"
-                                value="{{ $sousCategorie->libelle }}">
+                            <label for="debut">Nom </label>
+                            <input type="text" class="form-control" id="debut" placeholder="Nom" name="nom"
+                                value="{{ $anneeScolaire->nom }}">
                         </div>
 
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Debut</label>
+                            <input type="date" class="form-control" id="datepicker" name="date_debut"
+                                value="{{ $anneeScolaire->date_debut }}">
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Fin</label>
+                            <input type="date" class="form-control" id="datepicker" name="date_fin"
+                                value="{{ $anneeScolaire->date_fin }}">
+                        </div>
 
                         <div class="col-sm-6 pl-0">
                             <p class="text-right">
-                                <button type="submit" class="btn btn-space btn-primary">Submit</button>
-                                <a href="{{ redirect()->back() }}"><button
-                                        class="btn btn-space btn-secondary">Cancel</button></a>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button class="btn btn-space btn-secondary">Cancel</button>
                             </p>
                         </div>
+                    </form>
+
+
+
                 </div>
-                </form>
             </div>
         </div>
+        <!-- ============================================================== -->
+        <!-- end basic form -->
+        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- end basic form -->
-    <!-- ============================================================== -->
 @endsection

@@ -12,8 +12,8 @@ class TypeEtablissementController extends Controller
     }
 
     public function show ($id) {
-      $typeEtablissements = TypeEtablissement::findOrFail($id);
-      return view('back-end.pages.TypeEtablissement.type-etablissement-show' , compact('typeEtablissements'));
+      $typeEtablissement = TypeEtablissement::findOrFail($id);
+      return view('back-end.pages.TypeEtablissement.type-etablissement-show' , compact('typeEtablissement'));
     }
     public function create (Request $request) {
         $request->validate([

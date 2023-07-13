@@ -12,13 +12,14 @@
             @endif
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-
+                    {{-- <h2 class="pageheader-title">Data Tables</h2>
+                <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p> --}}
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Listes</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Liste des contrats</li>
+                                <li class="breadcrumb-item active" aria-current="page">Liste des classes</li>
                             </ol>
                         </nav>
                     </div>
@@ -34,11 +35,11 @@
             <!-- ============================================================== -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
-                    <h5 class="card-header">Liste des Contrats</h5>
+                    <h5 class="card-header">Liste des classes</h5>
                     <div class="col-md-4 offset-md-7">
                         <button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal"
                             data-target="#exampleModal">
-                            Ajouter Contrat
+                            Ajouter classe
                         </button>
                     </div>
                     <div class="card-body">
@@ -47,30 +48,30 @@
                                 <thead>
                                     <tr>
                                         <th>id</th>
-                                        <th>Nom Projet</th>
-                                        <th>Nom Prestataire</th>
-
-                                        <th>Nom entreprise</th>
-                                        <th>durée</th>
+                                        <th>Nom</th>
+                                        <th>Etablissement</th>
 
 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                    @foreach ($contrats as $contrat)
+                                    @foreach ($classes as $classe)
                                         <tr>
-                                            <td>{{ $contrat->id }}</td>
-                                            <td>{{ $contrat->projet->titre }}</td>
-                                            <td>{{ $contrat->prestataire->user->nom }}</td>
+                                            <td>{{ $classe->id }}</td>
+                                            <td>{{ $classe->nom }}</td>
+                                            <td>{{ $classe->etablissement->nom }}</td>
 
-                                            <td>{{ $contrat->entreprise->nom_entreprise }}</td>
-                                            <td>{{ $contrat->dure }}</td>
+
 
                                             <td>
 
-                                                <a href="{{ route('admin.contrat.edit', [($id = $contrat->id)]) }}">
+                                                <button type="button" onclick="deleteData({{ $classe->id }})"
+                                                    class="btn btn-danger btn-sm waves-effect waves-light"
+                                                    data-toggle="modal" data-target="#modalConfirmDeletes">
+                                                    <i class="fa fa-trash"></i> Supprimer
+                                                </button>
+                                                <a href="{{ route('admin.classe.show', [($id = $classe->id)]) }}">
                                                     <button type="button"
                                                         class="btn btn-primary btn-sm waves-effect waves-light"
                                                         data-toggle="modal">
@@ -79,45 +80,28 @@
                                                     </button>
 
                                                 </a>
-                                                <a href="{{ route('admin.contrat.show', [($id = $contrat->id)]) }}">
-                                                    <button type="button"
-                                                        class="btn btn-primary btn-sm waves-effect waves-light"
-                                                        data-toggle="modal">
-                                                        <i class="fa fa-eye"></i> Voir
-
-                                                    </button>
-
-                                                </a>
-
-
-                                                <button type="button" onclick="deleteData({{ $contrat->id }})"
-                                                    class="btn btn-danger btn-sm waves-effect waves-light"
-                                                    data-toggle="modal" data-target="#modalConfirmDeletes">
-                                                    <i class="fa fa-trash"></i> Supprimer
-                                                </button>
 
                                             </td>
 
                                         </tr>
                                     @endforeach
 
-                                    <tr>
 
-                                    </tr>
+
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>id</th>
                                         <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Niveau</th>
-                                        <th>metier</th>
+                                        <th>Etablissement</th>
+
 
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
-                            {!! $contrats->withQueryString()->links('pagination::bootstrap-5') !!}
+                            {!! $classes->withQueryString()->links('pagination::bootstrap-5') !!}
+
                         </div>
                     </div>
                 </div>
@@ -136,63 +120,34 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajout Contrat</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ajout classe</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('admin.contrat.create') }}">
+                    <form method="POST" action="{{ route('admin.classe.create') }}">
 
                         @csrf
 
-
-
-                        <div class="form-group  ">
-                            <label for="debut">debut </label>
-                            <input type="date" class="form-control" id="debut" placeholder="Date de debut"
-                                name="debut">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Durée</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" required name="dure"
-                                placeholder="dure">
-                        </div>
-
-                        <label for="exampleFormControlSelect1">Projets</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="projet_id" required>
+                        <label for="exampleInputPassword1">Etablissement</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="etablissement_id" required>
                             <option>choisir</option>
-                            @foreach ($projets as $projet)
-                                <option value="{{ $projet->id }}">{{ $projet->titre }}</option>
+                            @foreach ($etablissements as $etablissement)
+                                <option value=" {{ $etablissement->id }}">{{ $etablissement->nom }}
+                                </option>
                             @endforeach
 
                         </select>
 
-                        <label for="exampleFormControlSelect1">Prestataires</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="prestataire_id" required>
-                            <option>choisir</option>
-                            @foreach ($prestataires as $prestataire)
-                                <option value="{{ $prestataire->id }}">{{ $prestataire->user->nom }}</option>
-                            @endforeach
-
-                        </select>
-
-                        <label for="exampleFormControlSelect1">Entreprise</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="entreprise_id" required>
-                            <option>choisir</option>
-                            @foreach ($entreprises as $entreprise)
-                                <option value="{{ $entreprise->id }}">{{ $entreprise->nom_entreprise }}</option>
-                            @endforeach
-
-                        </select>
-
-                        <label for="exampleInputPassword1">Description</label>
                         <div class="form-group">
                             <input type="text" id="" name="id" value="0" hidden>
-                            <textarea name="description" id="" cols="50" rows="10" name=""></textarea>
+                            <label for="exampleInputPassword1">Nom</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" required name="nom"
+                                placeholder="Nom ">
                         </div>
+
+
 
 
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -217,7 +172,7 @@
             <div class="modal-content text-center">
                 <!--Header-->
                 <div class="modal-header d-flex justify-content-center">
-                    <p class="heading">Vous êtes sûr de bloquer cet contrat ?</p>
+                    <p class="heading">Vous êtes sûr de supprimer cette sous categorie ?</p>
                 </div>
 
                 <!--Body-->
@@ -247,7 +202,7 @@
     <script>
         function deleteData(id) {
             var id = id;
-            var url = '{{ route('admin.contrat.delete', ':id') }}';
+            var url = '{{ route('admin.classe.delete', ':id') }}';
             url = url.replace(':id', id);
             $("#deleteForm").attr('action', url);
         }
