@@ -31,9 +31,7 @@ Route::post('admin/connexion/perform' , [LoginController::class , 'login'])->nam
 
 Route::name('admin.')->prefix('admin')->middleware('CheckLoginMiddleware')->group( function () {
 
-    Route::get('/dashboard', function () {
-        return view('back-end.pages.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [LoginController::class , 'dashboard'])->name('dashboard');
 
 Route::get('/categories' , [CategorieController::class, 'index'])->name('categorie.index');
     Route::get('/categories/show/{id}' , [CategorieController::class, 'show'])->name('categorie.show');

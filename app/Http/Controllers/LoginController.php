@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Etablissement;
+use App\Models\Etudiant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,5 +36,11 @@ class LoginController extends Controller
         public function logout () {
          Auth::logout();
          return redirect('/');
+        }
+
+        public function dashboard() {
+            $etablissements = Etablissement::all();
+            $etudiants = Etudiant::all();
+            return view('back-end.pages.dashboard' , compact('etablissements' , 'etudiants'));
         }
 }
