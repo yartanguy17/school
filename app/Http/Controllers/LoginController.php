@@ -41,8 +41,8 @@ class LoginController extends Controller
 
         public function dashboard() {
             $data_etablissements = Etablissement::select('id','created_at')->get()->groupBy(function ($data){
-                return Carbon::parse($data->created_at)->format('M');
-            });
+                return Carbon::parse($data->created_at)->format('D-M');
+            })->sortByDesc('created_at');
             $etablissementMonth = [];
             $etablissementCount = [];
             foreach($data_etablissements as $month => $value) {
@@ -52,8 +52,8 @@ class LoginController extends Controller
 
 
             $data_etudiants = Etudiant::select('id','created_at')->get()->groupBy(function ($data){
-                return Carbon::parse($data->created_at)->format('M');
-            });
+                return Carbon::parse($data->created_at)->format('D-M');
+            })->sortByDesc('created_at');
             $etudiantMonth = [];
             $etudiantCount = [];
             foreach($data_etudiants as $month => $value) {

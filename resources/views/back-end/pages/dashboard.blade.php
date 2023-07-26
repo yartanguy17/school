@@ -82,12 +82,7 @@
                     <h5 class="card-header">Etablissemnts </h5>
                     <div class="card-body">
                         <div class="ct-chart " style="height: 354px;"></div>
-                        <div class="text-center">
 
-                            </span>
-
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -96,12 +91,7 @@
                     <h5 class="card-header">Etudiants</h5>
                     <div class="card-body">
                         <div class="ct-chart2" style="height: 354px;"></div>
-                        <div class="text-center">
 
-                            </span>
-
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
